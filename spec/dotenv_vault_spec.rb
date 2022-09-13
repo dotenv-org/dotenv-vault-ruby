@@ -1,6 +1,6 @@
-RSpec.describe Dotenv::Vault do
+RSpec.describe DotenvVault do
   it "has a version number" do
-    expect(Dotenv::Vault::VERSION).not_to be nil
+    expect(DotenvVault::VERSION).not_to be nil
   end
 
   it "does something useful" do
