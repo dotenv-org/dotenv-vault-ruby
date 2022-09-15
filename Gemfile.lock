@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    dotenv-vault (0.1.0)
+    dotenv-vault (0.2.0)
       dotenv
-    dotenv-vault-rails (0.1.0)
+    dotenv-vault-rails (0.2.0)
       dotenv-rails
 
 GEM
