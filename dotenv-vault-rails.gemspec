@@ -26,6 +26,7 @@ Gem::Specification.new "dotenv-vault-rails" do |spec|
   spec.require_paths = ["lib"]
 
 	spec.add_dependency "dotenv-rails"
+	spec.add_dependency "dotenv-vault", DotenvVault::VERSION
 
 	spec.add_development_dependency "spring"
 	spec.add_development_dependency "byebug"
