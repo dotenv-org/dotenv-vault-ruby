@@ -1,4 +1,4 @@
-require_relative 'lib/dotenv_vault/version'
+require_relative 'lib/dotenv-vault/version'
 
 Gem::Specification.new "dotenv-vault" do |spec|
   spec.name          = "dotenv-vault"
@@ -29,5 +29,5 @@ Gem::Specification.new "dotenv-vault" do |spec|
 
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
-  spec.add_development_dependency "standard"
+  spec.add_development_dependency "byebug"
 end

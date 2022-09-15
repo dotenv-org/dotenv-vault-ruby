@@ -1,5 +1,6 @@
 require "bundler/setup"
-require "dotenv_vault"
+require "byebug"
+require "dotenv-vault"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -11,4 +12,12 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  # Restore the state of ENV after each spec
+  config.before { @env_keys = ENV.keys }
+  config.after { ENV.delete_if { |k, _v| !@env_keys.include?(k) } }
+end
+
+def fixture_path(name)
+  File.join(File.expand_path("../fixtures", __FILE__), name)
 end

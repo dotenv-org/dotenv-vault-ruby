@@ -1,6 +1,7 @@
 require "spec_helper"
 require "rails"
 require "dotenv/rails"
+require "dotenv-vault/rails"
 
 # Fake watcher for Spring
 class SpecWatcher
@@ -15,7 +16,7 @@ class SpecWatcher
   end
 end
 
-describe Dotenv::Railtie do
+RSpec.describe DotenvVault::Railtie do
   before do
     Rails.env = "test"
     allow(Rails).to receive(:root)
@@ -32,13 +33,14 @@ describe Dotenv::Railtie do
 
   context "before_configuration" do
     it "calls #load" do
+      expect(DotenvVault::Railtie.instance).to receive(:load)
       expect(Dotenv::Railtie.instance).to receive(:load)
       ActiveSupport.run_load_hooks(:before_configuration)
     end
   end
 
   context "load" do
-    before { Dotenv::Railtie.load }
+    before { DotenvVault::Railtie.load }
 
     it "watches .env with Spring" do
       expect(Spring.watcher.items).to include(Rails.root.join(".env").to_s)
@@ -46,12 +48,12 @@ describe Dotenv::Railtie do
 
     it "watches other loaded files with Spring" do
       path = fixture_path("plain.env")
-      Dotenv.load(path)
+      DotenvVault.load(path)
       expect(Spring.watcher.items).to include(path)
     end
 
     it "does not load .env.local in test rails environment" do
-      expect(Dotenv::Railtie.instance.send(:dotenv_files)).to eql(
+      expect(DotenvVault::Railtie.instance.send(:dotenv_files)).to eql(
         [
           Rails.root.join(".env.test.local"),
           Rails.root.join(".env.test"),
@@ -62,7 +64,7 @@ describe Dotenv::Railtie do
 
     it "does load .env.local in development environment" do
       Rails.env = "development"
-      expect(Dotenv::Railtie.instance.send(:dotenv_files)).to eql(
+      expect(DotenvVault::Railtie.instance.send(:dotenv_files)).to eql(
         [
           Rails.root.join(".env.development.local"),
           Rails.root.join(".env.local"),
@@ -83,16 +85,16 @@ describe Dotenv::Railtie do
 
       it "falls back to RAILS_ROOT" do
         ENV["RAILS_ROOT"] = "/tmp"
-        expect(Dotenv::Railtie.root.to_s).to eql("/tmp")
+        expect(DotenvVault::Railtie.root.to_s).to eql("/tmp")
       end
     end
   end
 
   context "overload" do
-    before { Dotenv::Railtie.overload }
+    before { DotenvVault::Railtie.overload }
 
     it "does not load .env.local in test rails environment" do
-      expect(Dotenv::Railtie.instance.send(:dotenv_files)).to eql(
+      expect(DotenvVault::Railtie.instance.send(:dotenv_files)).to eql(
         [
           Rails.root.join(".env.test.local"),
           Rails.root.join(".env.test"),
@@ -103,7 +105,7 @@ describe Dotenv::Railtie do
 
     it "does load .env.local in development environment" do
       Rails.env = "development"
-      expect(Dotenv::Railtie.instance.send(:dotenv_files)).to eql(
+      expect(DotenvVault::Railtie.instance.send(:dotenv_files)).to eql(
         [
           Rails.root.join(".env.development.local"),
           Rails.root.join(".env.local"),
@@ -118,7 +120,7 @@ describe Dotenv::Railtie do
     end
 
     context "when loading a file containing already set variables" do
-      subject { Dotenv::Railtie.overload }
+      subject { DotenvVault::Railtie.overload }
 
       it "overrides any existing ENV variables" do
         ENV["DOTENV"] = "predefined"

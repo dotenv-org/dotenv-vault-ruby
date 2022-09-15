@@ -1,4 +1,4 @@
-require_relative 'lib/dotenv_vault/version'
+require_relative 'lib/dotenv-vault/version'
 
 Gem::Specification.new "dotenv-vault-rails" do |spec|
   spec.name          = "dotenv-vault-rails"
@@ -28,4 +28,5 @@ Gem::Specification.new "dotenv-vault-rails" do |spec|
 	spec.add_dependency "dotenv-rails"
 
 	spec.add_development_dependency "spring"
+	spec.add_development_dependency "byebug"
 end
