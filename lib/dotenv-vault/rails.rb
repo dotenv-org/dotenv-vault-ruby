@@ -1,4 +1,4 @@
-require "dotenv"
+require "dotenv-rails"
 
 # Fix for rake tasks loading in development
 #
