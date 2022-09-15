@@ -1,4 +1,5 @@
 require "bundler/gem_tasks"
+require "bundler/gem_helpers"
 
 namespace "dotenv-vault" do
   Bundler::GemHelper.install_tasks name: "dotenv-vault"
@@ -25,4 +26,4 @@ task release: ["dotenv-vault:release", "dotenv-vault-rails:release"]
 require "rspec/core/rake_task"
 RSpec::Core::RakeTask.new(:spec)
 
-task default: :spec
+task :default => :spec
