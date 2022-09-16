@@ -26,6 +26,7 @@ Gem::Specification.new "dotenv-vault" do |spec|
   spec.require_paths = ["lib"]
 
 	spec.add_dependency "dotenv"
+	spec.add_dependency "lockbox"
 
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"

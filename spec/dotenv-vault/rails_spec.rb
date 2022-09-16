@@ -33,7 +33,6 @@ RSpec.describe DotenvVault::Railtie do
 
   context "before_configuration" do
     it "calls #load" do
-      expect(DotenvVault::Railtie.instance).to receive(:load)
       expect(Dotenv::Railtie.instance).to receive(:load)
       ActiveSupport.run_load_hooks(:before_configuration)
     end
@@ -75,7 +74,7 @@ RSpec.describe DotenvVault::Railtie do
     end
 
     it "loads .env.test before .env" do
-      expect(ENV["DOTENV"]).to eql("test")
+      expect(ENV["BASIC"]).to eql("test")
     end
 
     context "when Rails.root is nil" do
@@ -116,18 +115,18 @@ RSpec.describe DotenvVault::Railtie do
     end
 
     it "overloads .env.test with .env" do
-      expect(ENV["DOTENV"]).to eql("true")
+      expect(ENV["BASIC"]).to eql("basic")
     end
 
     context "when loading a file containing already set variables" do
       subject { DotenvVault::Railtie.overload }
 
       it "overrides any existing ENV variables" do
-        ENV["DOTENV"] = "predefined"
+        ENV["BASIC"] = "predefined"
 
         expect do
           subject
-        end.to(change { ENV["DOTENV"] }.from("predefined").to("true"))
+        end.to(change { ENV["BASIC"] }.from("predefined").to("basic"))
       end
     end
   end

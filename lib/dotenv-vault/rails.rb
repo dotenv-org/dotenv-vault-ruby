@@ -16,7 +16,7 @@ if defined?(Rake.application)
   end
 end
 
-DotenvVault.instrumenter = ActiveSupport::Notifications
+Dotenv.instrumenter = ActiveSupport::Notifications
 
 # Watch all loaded env files with Spring
 begin
@@ -30,34 +30,13 @@ rescue LoadError, ArgumentError
 end
 
 module DotenvVault
-  class Railtie < Rails::Railtie
+  class Railtie < ::Dotenv::Railtie
     def load
-      Dotenv.load(*dotenv_files)
+      DotenvVault.load(*dotenv_files)
     end
 
     def overload
-      Dotenv.overload(*dotenv_files)
+      DotenvVault.overload(*dotenv_files)
     end
-
-    def root
-      Rails.root || Pathname.new(ENV["RAILS_ROOT"] || Dir.pwd)
-    end
-
-    def self.load
-      instance.load
-    end
-
-    private
-
-    def dotenv_files
-      [
-        root.join(".env.#{Rails.env}.local"),
-        (root.join(".env.local") unless Rails.env.test?),
-        root.join(".env.#{Rails.env}"),
-        root.join(".env")
-      ].compact
-    end
-
-    config.before_configuration { load }
   end
 end
