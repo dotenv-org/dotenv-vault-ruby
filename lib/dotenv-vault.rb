@@ -117,7 +117,9 @@ module DotenvVault
     parsed = Dotenv.parse(vault_path)
 
     # Get ciphertext
-    ciphertext = parsed["DOTENV_VAULT_#{ENV["DOTENV_ENVIRONMENT"].upcase}"] # DOTENV_VAULT_PRODUCTION
+    environment_key = "DOTENV_VAULT_#{ENV["DOTENV_ENVIRONMENT"].upcase}"
+    ciphertext = parsed[environment_key] # DOTENV_VAULT_PRODUCTION
+    raise NotFoundDotenvEnvironment, "NOT_FOUND_DOTENV_ENVIRONMENT: Cannot locate #{environment_key} in .env.vault" unless ciphertext
 
     # Decrypt ciphertext
     decrypted = decrypt(ciphertext)
@@ -128,9 +130,6 @@ module DotenvVault
 
   def using_vault?
     present?(ENV["DOTENV_ENVIRONMENT"]) && present?(ENV["DOTENV_KEY"])
-  end
-
-  def require_dotenv_key_and_dotenv_environment!
   end
 
   def present?(str)

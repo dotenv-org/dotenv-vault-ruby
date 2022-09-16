@@ -82,6 +82,18 @@ RSpec.describe DotenvVault do
       end
     end
 
+    context "environment is not found in the .env.vault file" do
+      before do
+        ENV["DOTENV_ENVIRONMENT"] = "does-not-exist"
+      end
+
+      it "raises an error" do
+        expect do
+          subject
+        end.to raise_error(DotenvVault::NotFoundDotenvEnvironment)
+      end
+    end
+
     context "incorrect key" do
       let(:dotenv_key) { "key_2111111111111111111111111111111111111111111111111111111111111112" }
 
