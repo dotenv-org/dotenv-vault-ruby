@@ -71,6 +71,52 @@ RSpec.describe DotenvVault do
       expect(ENV["BASIC"]).to eql("production")
     end
 
+    context "when value is already set in ENV" do
+      before do
+        ENV["BASIC"] = "previously set"
+      end
+
+      it "does not override it" do
+        subject
+        expect(ENV["BASIC"]).to eql("previously set")
+      end
+    end
+
+    context "incorrect key" do
+      let(:dotenv_key) { "key_2111111111111111111111111111111111111111111111111111111111111112" }
+
+      it "raises error" do
+        expect do
+          subject
+        end.to raise_error(DotenvVault::DecryptionFailed)
+      end
+    end
+
+    context "malformed key" do
+      let(:dotenv_key) { "key_1234" }
+
+      it "raises error" do
+        expect do
+          subject
+        end.to raise_error(DotenvVault::InvalidDotenvKey)
+      end
+    end
+  end
+
+  describe "#overload_vault" do
+    subject { DotenvVault.overload }
+
+    before do
+      ENV["BASIC"] = "already set"
+      ENV["DOTENV_ENVIRONMENT"] = dotenv_environment
+      ENV["DOTENV_KEY"] = dotenv_key
+    end
+
+    it "reads .env.vault and overrides it" do
+      subject
+      expect(ENV["BASIC"]).to eql("production")
+    end
+
     context "incorrect key" do
       let(:dotenv_key) { "key_2111111111111111111111111111111111111111111111111111111111111112" }
 
