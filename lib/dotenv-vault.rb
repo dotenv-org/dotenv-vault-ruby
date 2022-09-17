@@ -90,7 +90,7 @@ module DotenvVault
   #
   # Decrypts and loads to ENV
   def load_vault(*filenames)
-    DotenvVault.logger.info("[dotenv-vault] Loading .env.vault") if DotenvVault.logger
+    DotenvVault.logger.info("[dotenv-vault] Loading encrypted .env.vault to environment variables") if DotenvVault.logger
 
     parsed = parse_vault(*filenames)
     
@@ -104,7 +104,7 @@ module DotenvVault
   #
   # Decrypts and overloads to ENV
   def overload_vault(*filenames)
-    DotenvVault.logger.info("[dotenv-vault] Overloading .env.vault") if DotenvVault.logger
+    DotenvVault.logger.info("[dotenv-vault] Overloading encrypted .env.vault to environment variables") if DotenvVault.logger
 
     parsed = parse_vault(*filenames)
     
