@@ -105,9 +105,15 @@ module DotenvVault
   end
 
   def parse_vault(*filenames)
-    # Warn the developer unless both are set
+    # DOTENV_KEY=development/key_1234
+    #
+    # Warn the developer unless formatted correctly
     raise NotFoundDotenvKey, "NOT_FOUND_DOTENV_KEY: Cannot find ENV['DOTENV_KEY']" unless present?(ENV["DOTENV_KEY"])
-    raise NotFoundDotenvEnvironment, "NOT_FOUND_DOTENV_ENVIRONMENT: Cannot find ENV['DOTENV_ENVIRONMENT']" unless present?(ENV["DOTENV_ENVIRONMENT"])
+    split_dotenv_key = ENV["DOTENV_KEY"].split("/")
+    environment = split_dotenv_key[0]
+    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Missing environment part" unless present?(environment)
+    key = split_dotenv_key[1]
+    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Missing key part" unless present?(key)
 
     # Locate .env.vault
     vault_path = ".env.vault"
@@ -117,31 +123,29 @@ module DotenvVault
     parsed = Dotenv.parse(vault_path)
 
     # Get ciphertext
-    environment_key = "DOTENV_VAULT_#{ENV["DOTENV_ENVIRONMENT"].upcase}"
+    environment_key = "DOTENV_VAULT_#{environment.upcase}"
     ciphertext = parsed[environment_key] # DOTENV_VAULT_PRODUCTION
     raise NotFoundDotenvEnvironment, "NOT_FOUND_DOTENV_ENVIRONMENT: Cannot locate #{environment_key} in .env.vault" unless ciphertext
 
     # Decrypt ciphertext
-    decrypted = decrypt(ciphertext)
+    decrypted = decrypt(ciphertext, key)
 
     # Parse decrypted .env string
     Dotenv::Parser.call(decrypted, true)
   end
 
   def using_vault?
-    present?(ENV["DOTENV_ENVIRONMENT"]) && present?(ENV["DOTENV_KEY"])
+    present?(ENV["DOTENV_KEY"])
   end
 
   def present?(str)
     !(str.nil? || str.empty?)
   end
 
-  def decrypt(ciphertext)
-    raise NotFoundDotenvKey, "NOT_FOUND_DOTENV_KEY: Cannot find ENV['DOTENV_KEY']" unless present?(ENV["DOTENV_KEY"])
+  def decrypt(ciphertext, key)
+    key = key[-64..-1] # last 64 characters. allows for passing keys with preface like key_*****
 
-    key = ENV["DOTENV_KEY"][-64..-1] # last 64 characters. allows for passing keys with preface like key_*****
-
-    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: It must be 64 characters long (or more)" unless key.to_s.length == 64
+    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Key part must be 64 characters long (or more)" unless key.bytesize == 64
 
     lockbox = Lockbox.new(key: key, encode: true)
     begin

@@ -2,8 +2,7 @@ require "spec_helper"
 
 RSpec.describe DotenvVault do
   let(:test_path) { "test/fixtures/.env" }
-  let(:dotenv_key) { "key_1111111111111111111111111111111111111111111111111111111111111111" }
-  let(:dotenv_environment) { "production" }
+  let(:dotenv_key) { "production/key_1111111111111111111111111111111111111111111111111111111111111111" }
 
   before do
     Dir.chdir(File.expand_path("../fixtures", __FILE__))
@@ -62,7 +61,6 @@ RSpec.describe DotenvVault do
     subject { DotenvVault.load }
 
     before do
-      ENV["DOTENV_ENVIRONMENT"] = dotenv_environment
       ENV["DOTENV_KEY"] = dotenv_key
     end
 
@@ -84,7 +82,7 @@ RSpec.describe DotenvVault do
 
     context "environment is not found in the .env.vault file" do
       before do
-        ENV["DOTENV_ENVIRONMENT"] = "does-not-exist"
+        ENV["DOTENV_KEY"] = "does-not-exist/key_1111111111111111111111111111111111111111111111111111111111111111"
       end
 
       it "raises an error" do
@@ -95,7 +93,7 @@ RSpec.describe DotenvVault do
     end
 
     context "incorrect key" do
-      let(:dotenv_key) { "key_2111111111111111111111111111111111111111111111111111111111111112" }
+      let(:dotenv_key) { "production/key_2111111111111111111111111111111111111111111111111111111111111112" }
 
       it "raises error" do
         expect do
@@ -120,7 +118,6 @@ RSpec.describe DotenvVault do
 
     before do
       ENV["BASIC"] = "already set"
-      ENV["DOTENV_ENVIRONMENT"] = dotenv_environment
       ENV["DOTENV_KEY"] = dotenv_key
     end
 
@@ -130,7 +127,7 @@ RSpec.describe DotenvVault do
     end
 
     context "incorrect key" do
-      let(:dotenv_key) { "key_2111111111111111111111111111111111111111111111111111111111111112" }
+      let(:dotenv_key) { "production/key_2111111111111111111111111111111111111111111111111111111111111112" }
 
       it "raises error" do
         expect do
