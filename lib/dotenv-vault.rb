@@ -1,3 +1,4 @@
+require "uri"
 require "dotenv"
 require "lockbox"
 require "dotenv-vault/version"
@@ -109,15 +110,22 @@ module DotenvVault
     #
     # Warn the developer unless formatted correctly
     raise NotFoundDotenvKey, "NOT_FOUND_DOTENV_KEY: Cannot find ENV['DOTENV_KEY']" unless present?(ENV["DOTENV_KEY"])
-    split_dotenv_key = ENV["DOTENV_KEY"].split("/")
-    environment = split_dotenv_key[0]
-    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Missing environment part" unless present?(environment)
-    key = split_dotenv_key[1]
+
+    # Parse DOTENV_KEY. Format is a URI
+    uri = URI.parse(ENV["DOTENV_KEY"]) # dotenv://:key_1234@dotenv.org/vault/.env.vault?environment=production
+
+    # Get decrypt key
+    key = uri.password
     raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Missing key part" unless present?(key)
 
-    # Locate .env.vault
-    vault_path = ".env.vault"
-    raise NotFoundDotenvVault, "NotFoundDotenvVault: Cannot find .env.vault at ${vaultPath}" unless File.file?(vault_path)
+    # Get environment
+    params = Hash[URI::decode_www_form(uri.query.to_s)]
+    environment = params["environment"]
+    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Missing environment part" unless present?(environment)
+
+    # Get vault path
+    vault_path = uri.path.gsub("/vault/", "") # /vault/.env.vault => .env.vault
+    raise NotFoundDotenvVault, "NotFoundDotenvVault: Cannot find .env.vault at #{vaultPath}" unless File.file?(vault_path)
 
     # Parse .env.vault
     parsed = Dotenv.parse(vault_path)
