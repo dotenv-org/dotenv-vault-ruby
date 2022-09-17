@@ -2,6 +2,7 @@ require "uri"
 require "dotenv"
 require "lockbox"
 require "dotenv-vault/version"
+require "logger"
 
 module DotenvVault
   class NotFoundDotenvKey < ArgumentError; end
@@ -14,6 +15,10 @@ module DotenvVault
 
   class << self
     attr_accessor :instrumenter
+
+    def logger
+      @logger ||= Logger.new(STDOUT)
+    end
   end
 
   module_function
@@ -85,6 +90,8 @@ module DotenvVault
   #
   # Decrypts and loads to ENV
   def load_vault(*filenames)
+    DotenvVault.logger.info("[dotenv-vault] Loading .env.vault") if DotenvVault.logger
+
     parsed = parse_vault(*filenames)
     
     # Set ENV
@@ -97,6 +104,8 @@ module DotenvVault
   #
   # Decrypts and overloads to ENV
   def overload_vault(*filenames)
+    DotenvVault.logger.info("[dotenv-vault] Overloading .env.vault") if DotenvVault.logger
+
     parsed = parse_vault(*filenames)
     
     # Set ENV
