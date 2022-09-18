@@ -123,7 +123,7 @@ All set! When your app boots, it will recognize a `DOTENV_KEY` is set, decrypt t
 
 ### What happens if DOTENV_KEY is not set?
 
-dotenv-vault gracefully falls back to [dotenv](https://github.com/bkeepers/dotenv) when `DOTENV_KEY` is not set. This is useful for development.
+Dotenv Vault gracefully falls back to [dotenv](https://github.com/bkeepers/dotenv) when `DOTENV_KEY` is not set. This is useful for development.
 
 ### Should I commit my `.env` file?
 
