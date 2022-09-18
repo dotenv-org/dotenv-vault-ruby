@@ -96,7 +96,7 @@ $ npx dotenv-vault open production
 
 It will open up an interface to manage your production environment variables.
 
-## Deploy Anywhere
+## Build & Deploy Anywhere
 
 Build your encrypted `.env.vault`:
 
