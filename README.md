@@ -24,7 +24,7 @@ $ bundle
 
 ## Usage
 
-### Create .env file
+### `.env`
 
 Basic usage begins just like [dotenv](https://github.com/bkeepers/dotenv).
 
@@ -41,7 +41,7 @@ Whenever your application loads, these variables will be available in `ENV`:
 config.fog_directory  = ENV['S3_BUCKET']
 ```
 
-### Create .env.vault file
+### `.env.vault`
 
 Usage is similar to git. In the same directory as your `.env` file, run the command:
 
