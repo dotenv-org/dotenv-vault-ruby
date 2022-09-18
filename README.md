@@ -76,20 +76,6 @@ $ npx dotenv-vault open production
 
 It will open up an interface to manage your production environment variables.
 
-..or if you prefer to manage them in your text editor, run the command:
-
-```shell
-$ npx dotenv-vault pull production
-```
-
-Edit the `.env.production` file and push your changes:
-
-```shell
-$ npx dotenv-vault push production
-```
-
-Neato.
-
 ## Deploy Anywhere
 
 Build your encrypted `.env.vault`. Run the command:
