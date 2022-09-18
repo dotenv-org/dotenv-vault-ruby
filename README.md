@@ -78,7 +78,7 @@ It will open up an interface to manage your production environment variables.
 
 ## Deploy Anywhere
 
-Build your encrypted `.env.vault`. Run the command:
+Build your encrypted `.env.vault`:
 
 ```shell
 $ npx dotenv-vault build
@@ -118,6 +118,10 @@ No. We **strongly** recommend against committing your `.env` file to version con
 ### Should I commit my `.env.vault` file?
 
 Yes. It is safe and recommended to do so. It contains your vault identifier at the vault provider (in this case [dotenv.org](https://dotenv.org)) and contains your encrypted values.
+
+### Can I share the `DOTENV_KEY`?
+
+No. It is the key that unlocks your encrypted environment variables. Be very careful who you share this key with. Do not let it leak.
 
 ## Contributing
 
