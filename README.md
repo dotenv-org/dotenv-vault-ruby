@@ -129,9 +129,9 @@ Made a change to your production envs? Run `npx dotenv-vault build`, commit that
 
 ## Dotenv.org
 
-You will need a [Dotenv.org](https://dotenv.org) to make full use of dotenv-vault. It is free to use with premium features.
-
 **[Create your account](https://dotenv.org/signup)**
+
+You need a [Dotenv Account](https://dotenv.org) to use dotenv-vault. It is free to use with premium features.
 
 ![](https://api.checklyhq.com/v1/badges/checks/c2fee99a-38e7-414e-89b8-9766ceeb1927?style=flat&theme=dark&responseTime=true)
 ![](https://api.checklyhq.com/v1/badges/checks/4f557967-1ed1-486a-b762-39a63781d752?style=flat&theme=dark&responseTime=true)
