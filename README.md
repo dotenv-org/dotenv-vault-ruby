@@ -107,19 +107,19 @@ All set! When your app boots, it will recognize a `DOTENV_KEY` is set, decrypt t
 
 ## FAQ
 
-### What happens if DOTENV_KEY is not set?
+#### What happens if `DOTENV_KEY` is not set?
 
 Dotenv Vault gracefully falls back to [dotenv](https://github.com/bkeepers/dotenv) when `DOTENV_KEY` is not set. This is useful for development.
 
-### Should I commit my `.env` file?
+#### Should I commit my `.env` file?
 
 No. We **strongly** recommend against committing your `.env` file to version control. It should only include environment-specific values such as database passwords or API keys. Your production database should have a different password than your development database.
 
-### Should I commit my `.env.vault` file?
+#### Should I commit my `.env.vault` file?
 
 Yes. It is safe and recommended to do so. It contains your vault identifier at the vault provider (in this case [dotenv.org](https://dotenv.org)) and contains your encrypted values.
 
-### Can I share the `DOTENV_KEY`?
+#### Can I share the `DOTENV_KEY`?
 
 No. It is the key that unlocks your encrypted environment variables. Be very careful who you share this key with. Do not let it leak.
 
