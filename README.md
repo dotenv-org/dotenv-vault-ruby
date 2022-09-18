@@ -105,9 +105,11 @@ $ heroku config:set DOTENV_KEY="dotenv://:key_1234@dotenv.org/vault/.env.vault?e
 
 All set! When your app boots, it will recognize a `DOTENV_KEY` is set, decrypt the `.env.vault` file, and load the variables to `ENV`.
 
-## dotenv.org
+## Dotenv.org
 
-[Dotenv.org](https://dotenv.org) securely holds your secrets and facilitates syncing. It's a vault provider. You can check the status of its service below. 
+[Dotenv.org](https://dotenv.org) securely holds your secrets, facilitates syncing, multiple environments, building your vault file, and much more. It's a vault provider.
+
+You can check the status of its service below. 
 
 ![](https://api.checklyhq.com/v1/badges/checks/c2fee99a-38e7-414e-89b8-9766ceeb1927?style=flat&theme=dark&responseTime=true)
 <br>
