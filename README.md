@@ -22,11 +22,29 @@ And then execute:
 $ bundle
 ```
 
+### Sinatra or Plain ol' Ruby
+
+Install the gem:
+
+```shell
+$ gem install dotenv-vault
+```
+
+As early as possible in your application bootstrap process, load `.env`:
+
+```ruby
+require 'dotenv-vault/load'
+
+# or
+require 'dotenv-vault'
+DotenvVault.load
+```
+
 ## Usage
 
 ### `.env`
 
-Basic usage begins just like [dotenv](https://github.com/bkeepers/dotenv).
+Basic usage works just like [dotenv](https://github.com/bkeepers/dotenv).
 
 Add your application configuration to your `.env` file in the root of your project:
 
@@ -35,13 +53,15 @@ S3_BUCKET=YOURS3BUCKET
 SECRET_KEY=YOURSECRETKEYGOESHERE
 ```
 
-Whenever your application loads, these variables will be available in `ENV`:
+When your application loads, these variables will be available in `ENV`:
 
 ```ruby
 config.fog_directory  = ENV['S3_BUCKET']
 ```
 
 ### `.env.vault`
+
+Extended usage uses a `.env.vault` file that allows you to sync your secrets across machines, team members, and environments.
 
 Usage is similar to git. In the same directory as your `.env` file, run the command:
 
