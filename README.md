@@ -4,7 +4,7 @@
 
 Dotenv Vault extends the proven & trusted foundation of [dotenv](https://github.com/bkeepers/dotenv), with a `.env.vault` file.
 
-This new standard lets you sync your .env files – quickly & securely. Stop sharing them over insecure channels like Slack and email, and never lose an important .env file again.
+The extended standard lets you sync your `.env` files – quickly & securely. Stop sharing them over insecure channels like Slack and email, and never lose an important `.env` file again.
 
 ## Installation
 
@@ -127,9 +127,9 @@ All set! When your app boots, it will recognize a `DOTENV_KEY` is set, decrypt t
 
 ## Dotenv.org
 
-[Dotenv.org](https://dotenv.org) securely holds your secrets, facilitates syncing, multiple environments, building your vault file, and much more. It's a vault provider.
+You will need a [Dotenv.org](https://dotenv.org) to make full use of dotenv-vault. It is free to use with premium features.
 
-You can check the status of its service below. 
+**[Create your account](https://dotenv.org/signup)**
 
 ![](https://api.checklyhq.com/v1/badges/checks/c2fee99a-38e7-414e-89b8-9766ceeb1927?style=flat&theme=dark&responseTime=true)
 ![](https://api.checklyhq.com/v1/badges/checks/4f557967-1ed1-486a-b762-39a63781d752?style=flat&theme=dark&responseTime=true)
