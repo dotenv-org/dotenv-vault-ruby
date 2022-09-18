@@ -105,6 +105,24 @@ $ heroku config:set DOTENV_KEY="dotenv://:key_1234@dotenv.org/vault/.env.vault?e
 
 All set! When your app boots, it will recognize a `DOTENV_KEY` is set, decrypt the `.env.vault` file, and load the variables to `ENV`.
 
+## dotenv.org
+
+[Dotenv.org](https://dotenv.org) securely holds your secrets and facilitates syncing. It's a vault provider. You can check the status of its service below. 
+
+![](https://api.checklyhq.com/v1/badges/checks/c2fee99a-38e7-414e-89b8-9766ceeb1927?style=flat&theme=dark&responseTime=true)
+<br>
+![](https://api.checklyhq.com/v1/badges/checks/4f557967-1ed1-486a-b762-39a63781d752?style=flat&theme=dark&responseTime=true)
+<br>
+![](https://api.checklyhq.com/v1/badges/checks/804eb6fa-6599-4688-a649-7ff3c39a64b9?style=flat&theme=dark&responseTime=true)
+<br>
+![](https://api.checklyhq.com/v1/badges/checks/6a94504e-e936-4f07-bc0b-e08fee2734b3?style=flat&theme=dark&responseTime=true)
+<br>
+![](https://api.checklyhq.com/v1/badges/checks/06ac4f4e-3e0e-4501-9987-580b4d2a6b06?style=flat&theme=dark&responseTime=true)
+<br>
+![](https://api.checklyhq.com/v1/badges/checks/0ffc1e55-7ef0-4c2c-8acc-b6311871f41c?style=flat&theme=dark&responseTime=true)
+
+Visit [health.dotenv.org](https://health.dotenv.org) for more information.
+
 ## FAQ
 
 #### What happens if `DOTENV_KEY` is not set?
