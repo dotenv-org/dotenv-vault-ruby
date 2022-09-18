@@ -1,8 +1,10 @@
-# dotenv [![Gem Version](https://badge.fury.io/rb/dotenv-vault.svg)](https://badge.fury.io/rb/dotenv-vault)
+# dotenv-vault [![Gem Version](https://badge.fury.io/rb/dotenv-vault.svg)](https://badge.fury.io/rb/dotenv-vault)
 
 <img src="https://raw.githubusercontent.com/motdotla/dotenv/master/dotenv.svg" alt="dotenv-vault" align="right" width="200" />
 
-Dotenv Vault extends the proven & trusted foundation of [dotenv](https://github.com/bkeepers/dotenv), with a `.env.vault` file. This new standard lets you sync your .env files – quickly & securely. Stop sharing them over insecure channels like Slack and email, and never lose an important .env file again.
+Dotenv Vault extends the proven & trusted foundation of [dotenv](https://github.com/bkeepers/dotenv), with a `.env.vault` file.
+
+This new standard lets you sync your .env files – quickly & securely. Stop sharing them over insecure channels like Slack and email, and never lose an important .env file again.
 
 ## Installation
 
