@@ -132,3 +132,11 @@ No. We **strongly** recommend against committing your `.env` file to version con
 ### Should I commit my `.env.vault` file?
 
 Yes. It is safe and recommended to do so. It contains your vault identifier at the vault provider (in this case [dotenv.org](https://dotenv.org)) and contains your encrypted values.
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
