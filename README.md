@@ -24,7 +24,9 @@ $ bundle
 
 ## Usage
 
-### .env
+### Create .env file
+
+Basic usage begins just like [dotenv](https://github.com/bkeepers/dotenv).
 
 Add your application configuration to your `.env` file in the root of your project:
 
@@ -39,7 +41,7 @@ Whenever your application loads, these variables will be available in `ENV`:
 config.fog_directory  = ENV['S3_BUCKET']
 ```
 
-### .env.vault
+### Create .env.vault file
 
 Usage is similar to git. In the same directory as your `.env` file, run the command:
 
@@ -115,7 +117,7 @@ Set `DOTENV_KEY` on your infrastructure. For example, on Heroku:
 $ heroku config:set DOTENV_KEY="dotenv://:key_1234@dotenv.org/vault/.env.vault?environment=production"
 ```
 
-That's it! When your app boots, it will recognize a `DOTENV_KEY` is set. It will decrypt the `.env.vault` file and load those variables to `ENV`.
+All set! When your app boots, it will recognize a `DOTENV_KEY` is set, decrypt the `.env.vault` file, and load the variables to `ENV`.
 
 ## FAQ
 
