@@ -125,6 +125,8 @@ $ heroku config:set DOTENV_KEY="dotenv://:key_1234@dotenv.org/vault/.env.vault?e
 
 All set! When your app boots, it will recognize a `DOTENV_KEY` is set, decrypt the `.env.vault` file, and load the variables to `ENV`.
 
+Made a change to your production envs? Run `npx dotenv-vault build`, commit that safely to code, and deploy. It's simple and safe like that.
+
 ## Dotenv.org
 
 You will need a [Dotenv.org](https://dotenv.org) to make full use of dotenv-vault. It is free to use with premium features.
