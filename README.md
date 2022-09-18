@@ -6,6 +6,10 @@ Dotenv Vault extends the proven & trusted foundation of [dotenv](https://github.
 
 The extended standard lets you sync your `.env` files – quickly & securely. Stop sharing them over insecure channels like Slack and email, and never lose an important `.env` file again.
 
+You need a [Dotenv Account](https://dotenv.org) to use dotenv-vault. It is free to use with premium features.
+
+**[Create your account](https://dotenv.org/signup)**
+
 ## Installation
 
 ### Rails
@@ -156,7 +160,7 @@ No. We **strongly** recommend against committing your `.env` file to version con
 
 #### Should I commit my `.env.vault` file?
 
-Yes. It is safe and recommended to do so. It contains your vault identifier at the vault provider (in this case [dotenv.org](https://dotenv.org)) and contains your encrypted values.
+Yes. It is safe and recommended to do so. It contains your encrypted envs, and your vault identifier.
 
 #### Can I share the `DOTENV_KEY`?
 
