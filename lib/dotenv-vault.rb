@@ -132,10 +132,6 @@ module DotenvVault
     environment = params["environment"]
     raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Missing environment part" unless present?(environment)
 
-    # Get vault path
-    vault_path = uri.path.gsub("/vault/", "") # /vault/.env.vault => .env.vault
-    raise NotFoundDotenvVault, "NotFoundDotenvVault: Cannot find .env.vault at #{vaultPath}" unless File.file?(vault_path)
-
     # Parse .env.vault
     parsed = Dotenv.parse(vault_path)
 
@@ -152,7 +148,19 @@ module DotenvVault
   end
 
   def using_vault?
-    present?(ENV["DOTENV_KEY"])
+    dotenv_key_present? && dotenv_vault_present?
+  end
+
+  def dotenv_key_present?
+    present?(ENV["DOTENV_KEY"]) && dotenv_vault_present?
+  end
+
+  def dotenv_vault_present?
+    File.file?(vault_path)
+  end
+
+  def vault_path
+    ".env.vault"
   end
 
   def present?(str)
