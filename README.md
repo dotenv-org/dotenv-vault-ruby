@@ -65,12 +65,12 @@ config.fog_directory  = ENV['S3_BUCKET']
 
 ### `.env.vault`
 
-Extended usage uses a `.env.vault` file that allows you to sync your secrets across machines, team members, and environments.
+The `.env.vault` extends `.env`. It facilitates syncing your `.env` file across machines, team members, and environments.
 
 Usage is similar to git. In the same directory as your `.env` file, run the command:
 
 ```shell
-npx dotenv-vault new
+$ npx dotenv-vault new
 ```
 
 Follow those instructions and then run:
