@@ -6,10 +6,6 @@ Dotenv Vault extends the proven & trusted foundation of [dotenv](https://github.
 
 The extended standard lets you sync your `.env` files – quickly & securely. Stop sharing them over insecure channels like Slack and email, and never lose an important `.env` file again.
 
-You need a [Dotenv Account](https://dotenv.org) to use Dotenv Vault. It is free to use with premium features.
-
-**[Create your account](https://dotenv.org/signup)**
-
 ## Installation
 
 ### Rails
@@ -90,6 +86,8 @@ That's it!
 
 You just synced your `.env` file. Commit your `.env.vault` file to code, and tell your teammates to run `npx dotenv-vault pull`.
 
+[Learn more](https://www.dotenv.org/docs/tutorials/sync)
+
 ## Multiple Environments
 
 Run the command:
@@ -100,7 +98,9 @@ $ npx dotenv-vault open production
 
 It will open up an interface to manage your production environment variables.
 
-## Build & Deploy Anywhere
+[Learn more](https://www.dotenv.org/docs/tutorials/environments)
+
+## Integrate Anywhere™
 
 Build your encrypted `.env.vault`:
 
@@ -131,9 +131,9 @@ All set! When your app boots, it will recognize a `DOTENV_KEY` is set, decrypt t
 
 Made a change to your production envs? Run `npx dotenv-vault build`, commit that safely to code, and deploy. It's simple and safe like that.
 
-## Dotenv.org
+[Learn more](https://www.dotenv.org/docs/tutorials/integrations)
 
-**[Create your account](https://dotenv.org/signup)**
+## Dotenv.org
 
 You need a [Dotenv Account](https://dotenv.org) to use Dotenv Vault. It is free to use with premium features.
 
