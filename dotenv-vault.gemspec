@@ -6,8 +6,8 @@ Gem::Specification.new "dotenv-vault" do |spec|
   spec.authors       = ["motdotla"]
   spec.email         = ["mot@mot.la"]
 
-  spec.summary       = %q{dotenv-vault}
-  spec.description   = %q{dotenv-vault}
+  spec.summary       = %q{Decrypt .env.vault file.}
+  spec.description   = %q{Decrypt .env.vault file.}
   spec.homepage      = "https://github.com/dotenv-org/dotenv-vault-ruby"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
