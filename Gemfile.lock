@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    dotenv-vault (0.9.0)
+    dotenv-vault (0.10.0)
       dotenv
       lockbox
-    dotenv-vault-rails (0.9.0)
+    dotenv-vault-rails (0.10.0)
       dotenv-rails
-      dotenv-vault (= 0.9.0)
+      dotenv-vault (= 0.10.0)
 
 GEM
   remote: https://rubygems.org/
