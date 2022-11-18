@@ -117,10 +117,10 @@ module DotenvVault
   def parse_vault(*filenames)
     # DOTENV_KEY=development/key_1234
     #
-    # Warn the developer unless formatted correctly
+    # Warn the developer unless present
     raise NotFoundDotenvKey, "NOT_FOUND_DOTENV_KEY: Cannot find ENV['DOTENV_KEY']" unless present?(dotenv_key)
 
-        # Parse .env.vault
+    # Parse .env.vault
     parsed = Dotenv.parse(vault_path)
 
     # handle scenario for comma separated keys - for use with key rotation
