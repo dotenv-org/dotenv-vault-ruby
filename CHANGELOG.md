@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [Unreleased](https://github.com/dotenv-org/dotenv-vault-ruby/compare/v0.9.0...master)
 
+## 0.10.0
+
+### Added
+
+- Support key rotation. Added comma separated capability to `DOTENV_KEY`. Add multiple keys to your DOTENV_KEY for use with decryption. Separate with a comma. [#2](https://github.com/dotenv-org/dotenv-vault-ruby/pull/2)
+
 ## 0.9.0
 
 ### Changed
