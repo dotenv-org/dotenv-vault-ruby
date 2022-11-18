@@ -71,6 +71,15 @@ RSpec.describe DotenvVault do
       expect(ENV["BASIC"]).to eql("production")
     end
 
+    context "when comma separated keys" do
+      let(:dotenv_key) { "dotenv://:key_wrong@dotenv.org/vault/.env.vault?environment=#{environment},dotenv://:#{key}@dotenv.org/vault/.env.vault?environment=#{environment}" }
+
+      it "reads .env.vault" do
+        subject
+        expect(ENV["BASIC"]).to eql("production")
+      end
+    end
+
     context "when value is already set in ENV" do
       before do
         ENV["BASIC"] = "previously set"

@@ -117,31 +117,35 @@ module DotenvVault
   def parse_vault(*filenames)
     # DOTENV_KEY=development/key_1234
     #
-    # Warn the developer unless formatted correctly
-    raise NotFoundDotenvKey, "NOT_FOUND_DOTENV_KEY: Cannot find ENV['DOTENV_KEY']" unless present?(ENV["DOTENV_KEY"])
-
-    # Parse DOTENV_KEY. Format is a URI
-    uri = URI.parse(ENV["DOTENV_KEY"]) # dotenv://:key_1234@dotenv.org/vault/.env.vault?environment=production
-
-    # Get decrypt key
-    key = uri.password
-    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Missing key part" unless present?(key)
-
-    # Get environment
-    params = Hash[URI::decode_www_form(uri.query.to_s)]
-    environment = params["environment"]
-    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Missing environment part" unless present?(environment)
+    # Warn the developer unless present
+    raise NotFoundDotenvKey, "NOT_FOUND_DOTENV_KEY: Cannot find ENV['DOTENV_KEY']" unless present?(dotenv_key)
 
     # Parse .env.vault
     parsed = Dotenv.parse(vault_path)
 
-    # Get ciphertext
-    environment_key = "DOTENV_VAULT_#{environment.upcase}"
-    ciphertext = parsed[environment_key] # DOTENV_VAULT_PRODUCTION
-    raise NotFoundDotenvEnvironment, "NOT_FOUND_DOTENV_ENVIRONMENT: Cannot locate #{environment_key} in .env.vault" unless ciphertext
+    # handle scenario for comma separated keys - for use with key rotation
+    # example: DOTENV_KEY="dotenv://:key_1234@dotenv.org/vault/.env.vault?environment=prod,dotenv://:key_7890@dotenv.org/vault/.env.vault?environment=prod"
+    keys = dotenv_key.split(',')
 
-    # Decrypt ciphertext
-    decrypted = decrypt(ciphertext, key)
+    decrypted = nil
+    keys.each_with_index do |split_dotenv_key, index|
+      begin
+        # Get full key
+        key = split_dotenv_key.strip
+
+        # Get instructions for decrypt
+        attrs = instructions(parsed, key)
+
+        # Decrypt
+        decrypted = decrypt(attrs[:ciphertext], attrs[:key])
+
+        break
+      rescue => error
+        # last key
+        raise error if index >= keys.length - 1
+        # try next key
+      end
+    end
 
     # Parse decrypted .env string
     Dotenv::Parser.call(decrypted, true)
@@ -152,7 +156,13 @@ module DotenvVault
   end
 
   def dotenv_key_present?
-    present?(ENV["DOTENV_KEY"]) && dotenv_vault_present?
+    present?(dotenv_key) && dotenv_vault_present?
+  end
+
+  def dotenv_key
+    return ENV["DOTENV_KEY"] if present?(ENV["DOTENV_KEY"])
+
+    ""
   end
 
   def dotenv_vault_present?
@@ -170,7 +180,7 @@ module DotenvVault
   def decrypt(ciphertext, key)
     key = key[-64..-1] # last 64 characters. allows for passing keys with preface like key_*****
 
-    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Key part must be 64 characters long (or more)" unless key.bytesize == 64
+    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Key part must be 64 characters long (or more)" unless key && key.bytesize == 64
 
     lockbox = Lockbox.new(key: key, encode: true)
     begin
@@ -178,5 +188,29 @@ module DotenvVault
     rescue Lockbox::Error
       raise DecryptionFailed, "DECRYPTION_FAILED: Please check your DOTENV_KEY"
     end
+  end
+
+  def instructions(parsed, split_dotenv_key)
+    # Parse DOTENV_KEY. Format is a URI
+    uri = URI.parse(split_dotenv_key) # dotenv://:key_1234@dotenv.org/vault/.env.vault?environment=production
+
+    # Get decrypt key
+    key = uri.password
+    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Missing key part" unless present?(key)
+
+    # Get environment
+    params = Hash[URI::decode_www_form(uri.query.to_s)]
+    environment = params["environment"]
+    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Missing environment part" unless present?(environment)
+
+    # Get ciphertext payload
+    environment_key = "DOTENV_VAULT_#{environment.upcase}"
+    ciphertext = parsed[environment_key] # DOTENV_VAULT_PRODUCTION
+    raise NotFoundDotenvEnvironment, "NOT_FOUND_DOTENV_ENVIRONMENT: Cannot locate #{environment_key} in .env.vault" unless ciphertext
+
+    {
+      ciphertext: ciphertext,
+      key: key
+    }
   end
 end
