@@ -180,7 +180,7 @@ module DotenvVault
   def decrypt(ciphertext, key)
     key = key[-64..-1] # last 64 characters. allows for passing keys with preface like key_*****
 
-    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Key part must be 64 characters long (or more)" unless key.bytesize == 64
+    raise InvalidDotenvKey, "INVALID_DOTENV_KEY: Key part must be 64 characters long (or more)" unless key && key.bytesize == 64
 
     lockbox = Lockbox.new(key: key, encode: true)
     begin
