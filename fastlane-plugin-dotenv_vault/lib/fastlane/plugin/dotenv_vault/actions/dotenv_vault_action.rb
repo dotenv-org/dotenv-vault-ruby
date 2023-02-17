@@ -1,13 +1,16 @@
 require 'fastlane/action'
+require 'fastlane_core/configuration/config_item'
 require 'dotenv-vault'
 require_relative '../helper/dotenv_vault_helper'
 
 module Fastlane
   module Actions
     class DotenvVaultAction < Action
-      def self.run(_params)
+      def self.run(params)
+        params.values
+
         if defined?(::DotenvVault)
-          ::DotenvVault.load
+          ::DotenvVault.load(params[:vault_path])
         end
       end
 
@@ -30,11 +33,11 @@ module Fastlane
 
       def self.available_options
         [
-          # FastlaneCore::ConfigItem.new(key: :your_option,
-          #                         env_name: "DOTENV_VAULT_YOUR_OPTION",
-          #                      description: "A description of your option",
-          #                         optional: false,
-          #                             type: String)
+          FastlaneCore::ConfigItem.new(key: :vault_path,
+                                  env_name: "DOTENV_VAULT_PATH",
+                               description: "Path to .env.vault file (default is ./.env.vault)",
+                             default_value: ".env.vault",
+                                      type: String)
         ]
       end
 
