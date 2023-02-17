@@ -1,5 +1,5 @@
 module Fastlane
   module DotenvVault
-    VERSION = "0.10.0.beta.2"
+    VERSION = "0.10.0"
   end
 end
