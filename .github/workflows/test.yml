@@ -1,0 +1,32 @@
+name: Test
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v1
+      with:
+        path: fastlane-plugin-dotenv_vault/vendor/bundle
+        key: ${{ runner.os }}-gem-fastlane-${{ hashFiles('fastlane-plugin-dotenv_vault/Gemfile') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-fastlane
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.0
+        working-directory: 'fastlane-plugin-dotenv_vault/'
+    - name: Install dependencies
+      run: bundle check || bundle install --jobs=4 --retry=3 --path vendor/bundle
+      working-directory: 'fastlane-plugin-dotenv_vault/'
+    - name: Run tests
+      run: bundle exec rake
+      working-directory: 'fastlane-plugin-dotenv_vault/'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: fastlane-test-results
+        path: 'fastlane-plugin-dotenv_vault/test-results'
