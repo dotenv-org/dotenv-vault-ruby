@@ -10,28 +10,56 @@ This project is a [_fastlane_](https://github.com/fastlane/fastlane) plugin. To 
 fastlane add_plugin dotenv_vault
 ```
 
+then at the top of your `Fastfile`:
+
+```ruby
+# Fastfile
+dotenv_vault
+
+# or if you want to configure non-standard path to .env.vault file
+dotenv_vault(
+  # vault_path: ".env.vault",
+)
+```
+
+You can also set the `VAULT_PATH` environment variable to configure the path to the `.env.vault` file:
+
+```bash
+$ DOTENV_VAULT_PATH="../.env.vault" \
+fastlane some_lane
+```
+
 ## About dotenv_vault
 
 Decrypt .env.vault file.
 
-**Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
+## Actions
+
+### dotenv_vault
+
+Decrypt .env.vault file.
+
+#### Parameters
+
+| Parameter     | Environment Variable | Default      |
+| ------------- | -------------------- | ------------ |
+| `:vault_path` | `DOTENV_VAULT_PATH`  | `.env.vault` |
 
 ## Example
 
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
 
-**Note to author:** Please set up a sample project to make it easy for users to explore what your plugin does. Provide everything that is necessary to try out the plugin in this project (including a sample Xcode/Android project if necessary)
-
 ## Run tests for this plugin
 
 To run both the tests, and code style validation, run
 
-```
+```bash
 rake
 ```
 
 To automatically fix many of the styling issues, use
-```
+
+```bash
 rubocop -a
 ```
 
