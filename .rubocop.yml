@@ -14,6 +14,7 @@ AllCops:
   Exclude:
   - "**/lib/assets/custom_action_template.rb"
   - "./vendor/**/*"
+  - "vendor/**/*"
   - "**/lib/assets/DefaultFastfileTemplate"
   - "**/lib/assets/MatchfileTemplate"
   - "**/spec/fixtures/broken_files/broken_file.rb"
