@@ -51,7 +51,7 @@ DotenvVault.load
 
 ### `.env`
 
-Basic usage works just like [dotenv](https://github.com/bkeepers/dotenv).
+Development usage works just like [dotenv](https://github.com/bkeepers/dotenv).
 
 Add your application configuration to your `.env` file in the root of your project:
 
@@ -68,77 +68,43 @@ config.fog_directory  = ENV['S3_BUCKET']
 
 ## 🚀 Deploying
 
-### `.env.vault`
-
-The `.env.vault` extends `.env`. It facilitates syncing your `.env` file across machines, team members, and environments.
-
-Usage is similar to git. In the same directory as your `.env` file, run the command:
+Encrypt your environment settings by doing:
 
 ```shell
-$ npx dotenv-vault new
+npx dotenv-vault local build
 ```
 
-Follow those instructions and then run:
+This will create an encrypted `.env.vault` file along with a `.env.keys` file containing the encryption keys. Set the `DOTENV_KEY` environment variable by copying and pasting the key value from the `.env.keys` file onto your server or cloud provider. For example in heroku:
 
 ```shell
-$ npx dotenv-vault login
+heroku config:set DOTENV_KEY=<key string from .env.keys>
 ```
 
-Then run push and pull:
+Commit your .env.vault file safely to code and deploy. Your .env.vault fill be decrypted on boot, its environment variables injected, and your app work as expected.
 
-```shell
-$ npx dotenv-vault push
-$ npx dotenv-vault pull
-```
-
-That's it!
-
-You just synced your `.env` file. Commit your `.env.vault` file to code, and tell your teammates to run `npx dotenv-vault pull`.
-
-[Learn more](https://www.dotenv.org/docs/tutorials/sync)
+Note that when the `DOTENV_KEY` environment variable is set, environment settings will *always* be loaded from the `.env.vault` file in the project root. For development use, you can leave the `DOTENV_KEY` environment variable unset and fall back on the `dotenv` behaviour of loading from `.env` or a specified set of files (see [here in the `dotenv` README](https://github.com/bkeepers/dotenv#usage) for the details).
 
 ## 🌴 Manage Multiple Environments
 
-Run the command:
+Create a `.env.production` file in the root of your project and put your production values there.
 
 ```shell
-$ npx dotenv-vault open production
+# .env.production
+S3_BUCKET="PRODUCTION_S3BUCKET"
+SECRET_KEY="PRODUCTION_SECRETKEYGOESHERE"
 ```
 
-It will open up an interface to manage your production environment variables.
-
-[Learn more](https://www.dotenv.org/docs/tutorials/environments)
-
-Build your encrypted `.env.vault`:
+Rebuild your `.env.vault` file.
 
 ```shell
-$ npx dotenv-vault build
+npx dotenv-vault local build
 ```
 
-Safely commit and push your changes:
+View your `.env.keys` file. There is a production `DOTENV_KEY` that coincides with the additional `DOTENV_VAULT_PRODUCTION` cipher in your `.env.vault` file.
 
-```shell
-$ git commit -am "Updated .env.vault"
-$ git push
-```
+Set the production `DOTENV_KEY` on your server, recommit your `.env.vault` file to code, and deploy. That's it! Your .env.vault fill be decrypted on boot, its production environment variables injected, and your app work as expected.
 
-Obtain your `DOTENV_KEY`:
-
-```shell
-$ npx dotenv-vault keys
-```
-
-Set `DOTENV_KEY` on your infrastructure. For example, on Heroku:
-
-```shell
-$ heroku config:set DOTENV_KEY="dotenv://:key_1234@dotenv.org/vault/.env.vault?environment=production"
-```
-
-All set! When your app boots, it will recognize a `DOTENV_KEY` is set, decrypt the `.env.vault` file, and load the variables to `ENV`.
-
-Made a change to your production envs? Run `npx dotenv-vault build`, commit that safely to code, and deploy. It's simple and safe like that.
-
-[Learn more](https://www.dotenv.org/docs/tutorials/integrations)
+Want to additionally backup your .env files, maintain access controls, change history, and more? Check out the [vault managed guide to multiple environments](https://www.dotenv.org/docs/languages/go#-manage-multiple-environments).
 
 ## ❓ FAQ
 
