@@ -2,11 +2,18 @@
 
 <img src="https://raw.githubusercontent.com/motdotla/dotenv/master/dotenv.svg" alt="dotenv-vault" align="right" width="200" />
 
-Extends the proven & trusted foundation of [dotenv](https://github.com/bkeepers/dotenv), with a `.env.vault` file.
+Extends the proven & trusted foundation of [dotenv](https://github.com/bkeepers/dotenv), with `.env.vault` file support.
 
-The extended standard lets you sync your `.env` files – quickly & securely. Stop sharing them over insecure channels like Slack and email, and never lose an important `.env` file again.
+The extended standard lets you load encrypted secrets from your `.env.vault` file in production (and other) environments. Brought to you by the same people that pioneered [dotenv-nodejs](https://github.com/motdotla/dotenv).
 
-## Installation
+* [🌱 Install](#-install)
+* [🏗️ Usage (.env)](#%EF%B8%8F-usage)
+* [🚀 Deploying (.env.vault) 🆕](#-deploying)
+* [🌴 Multiple Environments](#-manage-multiple-environments)
+* [❓ FAQ](#-faq)
+* [⏱️ Changelog](./CHANGELOG.md)
+
+## 🌱 Install
 
 ### Rails
 
@@ -40,7 +47,7 @@ require 'dotenv-vault'
 DotenvVault.load
 ```
 
-## Usage
+## 🏗️ Usage
 
 ### `.env`
 
@@ -58,6 +65,8 @@ When your application loads, these variables will be available in `ENV`:
 ```ruby
 config.fog_directory  = ENV['S3_BUCKET']
 ```
+
+## 🚀 Deploying
 
 ### `.env.vault`
 
@@ -88,7 +97,7 @@ You just synced your `.env` file. Commit your `.env.vault` file to code, and tel
 
 [Learn more](https://www.dotenv.org/docs/tutorials/sync)
 
-## Multiple Environments
+## 🌴 Manage Multiple Environments
 
 Run the command:
 
@@ -99,8 +108,6 @@ $ npx dotenv-vault open production
 It will open up an interface to manage your production environment variables.
 
 [Learn more](https://www.dotenv.org/docs/tutorials/environments)
-
-## Integrate Anywhere™
 
 Build your encrypted `.env.vault`:
 
@@ -133,22 +140,7 @@ Made a change to your production envs? Run `npx dotenv-vault build`, commit that
 
 [Learn more](https://www.dotenv.org/docs/tutorials/integrations)
 
-## Dotenv.org
-
-You need a [Dotenv Account](https://dotenv.org) to use Dotenv Vault. It is free to use with premium features.
-
-![](https://api.checklyhq.com/v1/badges/checks/c2fee99a-38e7-414e-89b8-9766ceeb1927?style=flat&theme=dark&responseTime=true)
-![](https://api.checklyhq.com/v1/badges/checks/4f557967-1ed1-486a-b762-39a63781d752?style=flat&theme=dark&responseTime=true)
-<br>
-![](https://api.checklyhq.com/v1/badges/checks/804eb6fa-6599-4688-a649-7ff3c39a64b9?style=flat&theme=dark&responseTime=true)
-![](https://api.checklyhq.com/v1/badges/checks/6a94504e-e936-4f07-bc0b-e08fee2734b3?style=flat&theme=dark&responseTime=true)
-<br>
-![](https://api.checklyhq.com/v1/badges/checks/06ac4f4e-3e0e-4501-9987-580b4d2a6b06?style=flat&theme=dark&responseTime=true)
-![](https://api.checklyhq.com/v1/badges/checks/0ffc1e55-7ef0-4c2c-8acc-b6311871f41c?style=flat&theme=dark&responseTime=true)
-
-Visit [health.dotenv.org](https://health.dotenv.org) for more information.
-
-## FAQ
+## ❓ FAQ
 
 #### What happens if `DOTENV_KEY` is not set?
 
