@@ -49,8 +49,6 @@ DotenvVault.load
 
 ## 🏗️ Usage
 
-### `.env`
-
 Development usage works just like [dotenv](https://github.com/bkeepers/dotenv).
 
 Add your application configuration to your `.env` file in the root of your project:
