@@ -86,6 +86,12 @@ Note that when the `DOTENV_KEY` environment variable is set, environment setting
 
 ## 🌴 Manage Multiple Environments
 
+You have two options for managing multiple environments - locally managed or vault managed - both use [dotenv-vault](https://github.com/dotenv-org/dotenv-vault).
+
+Locally managed never makes a remote API call. It is completely managed on your machine. Vault managed adds conveniences like backing up your .env file, secure sharing across your team, access permissions, and version history. Choose what works best for you.
+
+#### 💻 Locally Managed
+
 Create a `.env.production` file in the root of your project and put your production values there.
 
 ```shell
@@ -100,11 +106,39 @@ Rebuild your `.env.vault` file.
 npx dotenv-vault local build
 ```
 
-View your `.env.keys` file. There is a production `DOTENV_KEY` that coincides with the additional `DOTENV_VAULT_PRODUCTION` cipher in your `.env.vault` file.
+View your `.env.keys` file. There is a production `DOTENV_KEY` that pairs with the `DOTENV_VAULT_PRODUCTION` cipher in your `.env.vault` file.
 
-Set the production `DOTENV_KEY` on your server, recommit your `.env.vault` file to code, and deploy. That's it! Your .env.vault fill be decrypted on boot, its production environment variables injected, and your app work as expected.
+Set the production `DOTENV_KEY` on your server, recommit your `.env.vault` file to code, and deploy. That's it!
 
-Want to additionally backup your .env files, maintain access controls, change history, and more? Check out the [vault managed guide to multiple environments](https://www.dotenv.org/docs/languages/go#-manage-multiple-environments).
+Your .env.vault fill be decrypted on boot, its production environment variables injected, and your app work as expected.
+
+#### 🔐 Vault Managed
+
+Sync your .env file. Run the push command and follow the instructions. It works a lot like git. [learn more](/docs/sync/quickstart)
+
+```
+$ npx dotenv-vault push
+```
+
+Manage multiple environments with the included UI. [learn more](/docs/tutorials/environments)
+
+```
+$ npx dotenv-vault open
+```
+
+Build your `.env.vault` file with multiple environments.
+
+```
+$ npx dotenv-vault build
+```
+
+Access your `DOTENV_KEY`.
+
+```
+$ npx dotenv-vault keys
+```
+
+Set the production `DOTENV_KEY` on your server, recommit your `.env.vault` file to code, and deploy. That's it!
 
 ## ❓ FAQ
 
