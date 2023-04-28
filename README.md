@@ -66,7 +66,7 @@ config.fog_directory  = ENV['S3_BUCKET']
 
 ## 🚀 Deploying
 
-Encrypt your environment settings by doing:
+Encrypt your environment variables by doing:
 
 ```shell
 npx dotenv-vault local build
