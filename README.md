@@ -20,7 +20,7 @@ The extended standard lets you load encrypted secrets from your `.env.vault` fil
 Add this line to the top of your application's Gemfile:
 
 ```ruby
-gem 'dotenv-vault-rails'
+gem "dotenv-vault-rails"
 ```
 
 And then execute:
@@ -40,10 +40,10 @@ $ gem install dotenv-vault
 As early as possible in your application bootstrap process, load `.env`:
 
 ```ruby
-require 'dotenv-vault/load'
+require "dotenv-vault/load"
 
 # or
-require 'dotenv-vault'
+require "dotenv-vault"
 DotenvVault.load
 ```
 
@@ -61,82 +61,53 @@ SECRET_KEY=YOURSECRETKEYGOESHERE
 When your application loads, these variables will be available in `ENV`:
 
 ```ruby
-config.fog_directory  = ENV['S3_BUCKET']
+config.fog_directory  = ENV["S3_BUCKET"]
 ```
 
 ## 🚀 Deploying
 
-Encrypt your environment variables by doing:
+Encrypt your `.env.vault` file.
 
-```shell
-npx dotenv-vault local build
-```
-
-This will create an encrypted `.env.vault` file along with a `.env.keys` file containing the encryption keys. Set the `DOTENV_KEY` environment variable by copying and pasting the key value from the `.env.keys` file onto your server or cloud provider. For example in heroku:
-
-```shell
-heroku config:set DOTENV_KEY=<key string from .env.keys>
-```
-
-Commit your .env.vault file safely to code and deploy. Your .env.vault fill be decrypted on boot, its environment variables injected, and your app work as expected.
-
-Note that when the `DOTENV_KEY` environment variable is set, environment settings will *always* be loaded from the `.env.vault` file in the project root. For development use, you can leave the `DOTENV_KEY` environment variable unset and fall back on the `dotenv` behaviour of loading from `.env` or a specified set of files (see [here in the `dotenv` README](https://github.com/bkeepers/dotenv#usage) for the details).
-
-## 🌴 Manage Multiple Environments
-
-You have two options for managing multiple environments - locally managed or vault managed - both use [dotenv-vault](https://github.com/dotenv-org/dotenv-vault).
-
-Locally managed never makes a remote API call. It is completely managed on your machine. Vault managed adds conveniences like backing up your .env file, secure sharing across your team, access permissions, and version history. Choose what works best for you.
-
-#### 💻 Locally Managed
-
-Create a `.env.production` file in the root of your project and put your production values there.
-
-```shell
-# .env.production
-S3_BUCKET="PRODUCTION_S3BUCKET"
-SECRET_KEY="PRODUCTION_SECRETKEYGOESHERE"
-```
-
-Rebuild your `.env.vault` file.
-
-```shell
-npx dotenv-vault local build
-```
-
-View your `.env.keys` file. There is a production `DOTENV_KEY` that pairs with the `DOTENV_VAULT_PRODUCTION` cipher in your `.env.vault` file.
-
-Set the production `DOTENV_KEY` on your server, recommit your `.env.vault` file to code, and deploy. That's it!
-
-Your .env.vault fill be decrypted on boot, its production environment variables injected, and your app work as expected.
-
-#### 🔐 Vault Managed
-
-Sync your .env file. Run the push command and follow the instructions. [learn more](/docs/sync/quickstart)
-
-```
-$ npx dotenv-vault push
-```
-
-Manage multiple environments with the included UI. [learn more](/docs/tutorials/environments)
-
-```
-$ npx dotenv-vault open
-```
-
-Build your `.env.vault` file with multiple environments.
-
-```
+```bash
 $ npx dotenv-vault build
 ```
 
-Access your `DOTENV_KEY`.
+Fetch your production `DOTENV_KEY`.
 
-```
-$ npx dotenv-vault keys
+```bash
+$ npx dotenv-vault keys production
 ```
 
-Set the production `DOTENV_KEY` on your server, recommit your `.env.vault` file to code, and deploy. That's it!
+Set `DOTENV_KEY` on your server.
+
+```bash
+# heroku example
+heroku config:set DOTENV_KEY=dotenv://:key_1234…@dotenv.org/vault/.env.vault?environment=production
+```
+
+That's it! On deploy, your `.env.vault` file will be decrypted and its secrets injected as environment variables – just in time.
+
+*ℹ️ A note from [Mot](https://github.com/motdotla): Until recently, we did not have an opinion on how and where to store your secrets in production. We now strongly recommend generating a `.env.vault` file. It's the best way to prevent your secrets from being scattered across multiple servers and cloud providers – protecting you from breaches like the [CircleCI breach](https://techcrunch.com/2023/01/05/circleci-breach/). Also it unlocks interoperability WITHOUT native third-party integrations. Third-party integrations are [increasingly risky](https://coderpad.io/blog/development/heroku-github-breach/) to our industry. They may be the 'du jour' of today, but we imagine a better future.*
+
+<a href="https://github.com/dotenv-org/dotenv-vault#dotenv-vault-">Learn more at dotenv-vault: Deploying</a>
+
+## 🌴 Manage Multiple Environments
+
+Edit your production environment variables.
+
+```bash
+$ npx dotenv-vault open production
+```
+
+Regenerate your `.env.vault` file.
+
+```bash
+$ npx dotenv-vault build
+```
+
+*ℹ️  🔐 Vault Managed vs 💻 Locally Managed: The above example, for brevity's sake, used the 🔐 Vault Managed solution to manage your `.env.vault` file. You can instead use the 💻 Locally Managed solution. [Read more here](https://github.com/dotenv-org/dotenv-vault#how-do-i-use--locally-managed-dotenv-vault). Our vision is that other platforms and orchestration tools adopt the `.env.vault` standard as they did the `.env` standard. We don't expect to be the only ones providing tooling to manage and generate `.env.vault` files.*
+
+<a href="https://github.com/dotenv-org/dotenv-vault#-manage-multiple-environments">Learn more at dotenv-vault: Manage Multiple Environments</a>
 
 ## ❓ FAQ
 
