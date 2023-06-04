@@ -20,7 +20,7 @@ The extended standard lets you load encrypted secrets from your `.env.vault` fil
 Add this line to the top of your application's Gemfile:
 
 ```ruby
-gem "dotenv-vault-rails"
+gem "dotenv-vault-rails", require: "dotenv-vault/rails-now"
 ```
 
 And then execute:
