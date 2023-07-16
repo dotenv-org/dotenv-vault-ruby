@@ -31,4 +31,8 @@ Gem::Specification.new "dotenv-vault" do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "byebug"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "rubocop-rake"
+  spec.add_development_dependency "rubocop-rspec"
 end

@@ -1,8 +1,9 @@
 require "uri"
 require "dotenv"
+require "stringio"
 require "lockbox"
-require "dotenv-vault/version"
 require "logger"
+require_relative "./dotenv-vault/version"
 
 module DotenvVault
   class NotFoundDotenvKey < ArgumentError; end

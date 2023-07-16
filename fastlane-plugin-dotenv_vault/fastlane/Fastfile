@@ -1,0 +1,21 @@
+# you want this at the top of your Fastfile
+dotenv_vault
+
+# you can set the :vault_path option explicitly
+# if your project has a nested `fastlane/` dir, for example
+#
+# dotenv_vault(vault_path: '../.env.vault')
+
+# you can also set the :vault_path option via an ENV var
+# this is useful if you want to use the same Fastfile for multiple projects
+#
+# ENV['DOTENV_VAULT_PATH'] #=> '../.env.vault'
+
+# be sure to set the DOTENV_KEY env var in the command
+# or in the .env when you run this lane
+#
+# DOTENV_KEY=123 fastlane build_or_something
+lane :build_or_something do
+  puts "DOTENV_KEY: #{ENV.fetch('DOTENV_KEY')}"
+  puts "EXAMPLE_ENV_VAR: #{ENV.fetch('EXAMPLE_ENV_VAR')}"
+end
