@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [Unreleased](https://github.com/dotenv-org/dotenv-vault-ruby/compare/v0.9.0...master)
+## [Unreleased](https://github.com/dotenv-org/dotenv-vault-ruby/compare/v0.10.1...master)
+
+## 0.10.1
+
+### Changed
+
+- Modify the log message to `Loading env from encrypted .env.vault`.
 
 ## 0.10.0
 
