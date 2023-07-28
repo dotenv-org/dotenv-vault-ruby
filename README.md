@@ -139,6 +139,11 @@ No. It is the key that unlocks your encrypted environment variables. Be very car
 
 See [CHANGELOG.md](CHANGELOG.md)
 
+## Development
+
+1. Bump and tag version
+2. rake release
+
 ## License
 
 MIT
