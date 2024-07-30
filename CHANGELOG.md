@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [Unreleased](https://github.com/dotenv-org/dotenv-vault-ruby/compare/v0.10.1...master)
 
+## 0.10.2
+
+### Changed
+
+- Locked the [dotenv](https://github.com/bkeepers/dotenv) dependency version to `~> 2.0`.
+
 ## 0.10.1
 
 ### Changed
